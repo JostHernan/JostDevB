@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLADE Studio - El Futuro del Estilo Masculino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #0F0F1A 0%, #1A1A2E 100%);
+            color: #E8E8F0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated gradient blobs background */
+        @keyframes blob1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.1); }
+            50% { transform: translate(-10px, 20px) scale(0.95); }
+            75% { transform: translate(30px, 10px) scale(1.05); }
+        }
+
+        @keyframes blob2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-30px, 20px) scale(0.95); }
+            50% { transform: translate(20px, -30px) scale(1.1); }
+            75% { transform: translate(-20px, -10px) scale(1.02); }
+        }
+
+        @keyframes blob3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(10px, 30px) scale(1.05); }
+            50% { transform: translate(-20px, -20px) scale(0.98); }
+            75% { transform: translate(25px, 15px) scale(1.08); }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 0 40px rgba(123, 97, 255, 0.3); }
+            50% { text-shadow: 0 0 30px rgba(0, 212, 255, 0.8), 0 0 60px rgba(123, 97, 255, 0.5); }
+        }
+
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(0, 212, 255, 0.05); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.6), inset 0 0 30px rgba(0, 212, 255, 0.1); }
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 90%;
+            animation: slideDown 0.6s ease-out;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .nav-logo {
+            font-family: 'Sora', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(232, 232, 240, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00D4FF;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            color: #0F0F1A;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: #00D4FF;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 60px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 10%;
+            left: 5%;
+            animation: blob1 8s infinite;
+            filter: blur(60px);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(123, 97, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: 10%;
+            right: 5%;
+            animation: blob2 10s infinite;
+            filter: blur(60px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 72px;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .hero h1 .glow-text {
+            animation: glow 3s ease-in-out infinite;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(232, 232, 240, 0.7);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            position: relative;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: #0F0F1A;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-clip: padding-box;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, #00D4FF, #7B61FF, #00D4FF);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            z-index: -1;
+            animation: gradientBorder 3s ease infinite;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .hero-card {
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 320px;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #00D4FF;
+        }
+
+        .hero-card .appointment {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-card p {
+            font-size: 14px;
+            color: rgba(232, 232, 240, 0.6);
+            margin-bottom: 20px;
+        }
+
+        .hero-card-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            border-radius: 8px;
+            color: #00D4FF;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-card-btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 60px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: rgba(232, 232, 240, 0.6);
+            font-size: 16px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .service-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 97, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 16px;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-name {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-price {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            padding: 60px;
+            margin: 60px;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .stat-item h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item p {
+            color: rgba(232, 232, 240, 0.6);
+            font-size: 14px;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 60px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 97, 255, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 97, 255, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: #00D4FF;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 100px 60px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .process-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .process-step {
+            flex: 1;
+            position: relative;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Sora', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #0F0F1A;
+            margin: 0 auto 20px;
+        }
+
+        .process-step h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .process-step p {
+            color: rgba(232, 232, 240, 0.6);
+            font-size: 14px;
+        }
+
+        .process-line {
+            position: absolute;
+            top: 30px;
+            left: 60px;
+            right: -20px;
+            height: 2px;
+            background: linear-gradient(90deg, #00D4FF, #7B61FF);
+            z-index: -1;
+        }
+
+        .process-step:last-child .process-line {
+            display: none;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 60px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .testimonial-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+        }
+
+        .testimonial-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+        }
+
+        .testimonial-info h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-info p {
+            font-size: 12px;
+            color: rgba(232, 232, 240, 0.6);
+        }
+
+        .stars {
+            color: #00D4FF;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: rgba(232, 232, 240, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Booking CTA Section */
+        .booking-cta {
+            padding: 120px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(123, 97, 255, 0.05));
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            z-index: 5;
+        }
+
+        .booking-cta h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .booking-cta p {
+            font-size: 18px;
+            color: rgba(232, 232, 240, 0.7);
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .booking-btn {
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #00D4FF, #7B61FF);
+            border: none;
+            border-radius: 12px;
+            color: #0F0F1A;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .booking-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px;
+            color: rgba(232, 232, 240, 0.7);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .footer-section h4 {
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #E8E8F0;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .footer-section a {
+            color: rgba(232, 232, 240, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #00D4FF;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 999;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .mobile-menu a {
+            color: rgba(232, 232, 240, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #00D4FF;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+                gap: 20px;
+            }
+
+            .nav-logo {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 30px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero-card {
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+
+            .services {
+                padding: 60px 30px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                margin: 30px;
+                padding: 40px;
+            }
+
+            .gallery {
+                padding: 60px 30px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process {
+                padding: 60px 30px;
+            }
+
+            .process-container {
+                flex-direction: column;
+            }
+
+            .process-line {
+                display: none !important;
+            }
+
+            .testimonials {
+                padding: 60px 30px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-cta {
+                padding: 80px 30px;
+            }
+
+            .booking-cta h2 {
+                font-size: 36px;
+            }
+
+            footer {
+                padding: 40px 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 10px 15px;
+                border-radius: 20px;
+            }
+
+            .nav-logo {
+                font-size: 18px;
+            }
+
+            .hero {
+                padding: 80px 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .services {
+                padding: 40px 20px;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                margin: 20px;
+                padding: 30px;
+            }
+
+            .stat-item h3 {
+                font-size: 28px;
+            }
+
+            .gallery {
+                padding: 40px 20px;
+            }
+
+            .testimonials {
+                padding: 40px 20px;
+            }
+
+            .booking-cta {
+                padding: 60px 20px;
+            }
+
+            .booking-cta h2 {
+                font-size: 28px;
+            }
+
+            footer {
+                padding: 30px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">BLADE Studio</div>
+        <ul class="nav-links">
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#testimonios">Testimonios</a></li>
+        </ul>
+        <button class="nav-cta">Reservar</button>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" style="display: none;">
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#testimonios">Testimonios</a>
+        <button class="nav-cta" style="width: 100%;">Reservar</button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>EL FUTURO DEL <span class="glow-text">ESTILO MASCULINO</span></h1>
+            <p>Experimenta el corte y la barba perfecta con nuestros barberos expertos. Tecnología de última generación aplicada al arte del barbering.</p>
+            <button class="hero-cta">Reservar Ahora</button>
+        </div>
+        <div class="hero-card">
+            <h3>Tu Próxima Cita</h3>
+            <div class="appointment">19 Mar</div>
+            <p>Confirma tu turno y obtén 10% de descuento en tu próxima visita</p>
+            <button class="hero-card-btn">Ver Disponibilidad</button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="servicios">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <p class="section-subtitle">Diseñados para potenciar tu estilo personal</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">✂️</div>
+                <div class="service-name">Corte Clásico</div>
+                <div class="service-price">$5500</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <div class="service-name">Degradado</div>
+                <div class="service-price">$6000</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💈</div>
+                <div class="service-name">Barba Diseño</div>
+                <div class="service-price">$4000</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⭐</div>
+                <div class="service-name">Corte + Barba</div>
+                <div class="service-price">$8500</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌟</div>
+                <div class="service-name">Alisado Premium</div>
+                <div class="service-price">$7000</div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👁️</div>
+                <div class="service-name">Diseño de Cejas</div>
+                <div class="service-price">$2000</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stat-item">
+            <h3>5+</h3>
+            <p>Años de Trayectoria</p>
+        </div>
+        <div class="stat-item">
+            <h3>10K+</h3>
+            <p>Cortes Realizados</p>
+        </div>
+        <div class="stat-item">
+            <h3>4.9★</h3>
+            <p>Calificación Clientes</p>
+        </div>
+        <div class="stat-item">
+            <h3>3</h3>
+            <p>Barberos Expertos</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="galeria">
+        <h2 class="section-title">Galería de Trabajos</h2>
+        <p class="section-subtitle">Inspírate con nuestros mejores estilos</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Corte Fade</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Barba Detallada</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Estilo Moderno</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Degradado Clásico</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Corte Artístico</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">Estilo Vintage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="proceso">
+        <h2 class="section-title">Cómo Reservar</h2>
+        <p class="section-subtitle">3 pasos simples para tu próximo corte</p>
+        <div class="process-container">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Elige tu Servicio</h3>
+                <p>Selecciona el corte o servicio que deseas. Tenemos opciones para todos los estilos.</p>
+                <div class="process-line"></div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Reserva tu Hora</h3>
+                <p>Elige la fecha y hora que mejor se adapte a tu agenda.</p>
+                <div class="process-line"></div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>¡Listo!</h3>
+                <p>Recibirás una confirmación. Solo prepárate para lucir impresionante.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonios">
+        <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+        <p class="section-subtitle">Testimonios de gente que confía en BLADE Studio</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar"></div>
+                    <div class="testimonial-info">
+                        <h4>Juan Martínez</h4>
+                        <p>Cliente desde 2021</p>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"El mejor lugar para cortarse en la ciudad. Los barberos son profesionales y el ambiente es increíble. Siempre vuelvo."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar"></div>
+                    <div class="testimonial-info">
+                        <h4>Carlos López</h4>
+                        <p>Cliente frecuente</p>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Excelente atención, detalles impecables. El diseño de barba que me hicieron es perfecto. Totalmente recomendado."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar"></div>
+                    <div class="testimonial-info">
+                        <h4>Diego Fernández</h4>
+                        <p>Cliente nuevo</p>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Primera vez que vengo y quedé sorprendido. El estilo, la limpieza, todo perfecto. Definitivamente vuelvo pronto."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking CTA Section -->
+    <section class="booking-cta">
+        <h2>Transforma Tu Estilo Hoy</h2>
+        <p>Únete a cientos de clientes satisfechos que ya confían en BLADE Studio. Tu próximo corte perfecto está a solo un clic.</p>
+        <button class="booking-btn">Reservar tu Cita Ahora</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BLADE Studio</h4>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Galería</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#">Corte Clásico</a></li>
+                    <li><a href="#">Degradado</a></li>
+                    <li><a href="#">Diseño de Barba</a></li>
+                    <li><a href="#">Alisado Premium</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Horarios</h4>
+                <ul>
+                    <li>Lun - Vie: 10:00 - 20:00</li>
+                    <li>Sábado: 10:00 - 18:00</li>
+                    <li>Domingo: Cerrado</li>
+                    <li><a href="#">Agendar online</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="tel:+541122334455">+54 11 2233-4455</a></li>
+                    <li><a href="mailto:info@bladestudio.ar">info@bladestudio.ar</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BLADE Studio. Todos los derechos reservados. | Diseñado para la excelencia.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'none' || mobileMenu.style.display === '' ? 'flex' : 'none';
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .gallery-item, .testimonial-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
