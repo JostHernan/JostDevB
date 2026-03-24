@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISTRITO Barber Club - Barbería Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #EAEAEA;
+            background-color: #1A1A2E;
+            overflow-x: hidden;
+        }
+
+        /* SIDEBAR NAVIGATION - Desktop */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 70px;
+            height: 100vh;
+            background: linear-gradient(180deg, #16213E 0%, #0F3460 100%);
+            border-right: 2px solid #533483;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            z-index: 1000;
+            gap: 30px;
+        }
+
+        .nav-item {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            color: #EAEAEA;
+        }
+
+        .nav-item svg {
+            width: 28px;
+            height: 28px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(83, 52, 131, 0.3);
+            transform: scale(1.1);
+        }
+
+        .nav-item.active {
+            background-color: #533483;
+            color: #E94560;
+        }
+
+        .nav-item.active svg {
+            fill: #E94560;
+            color: #E94560;
+        }
+
+        /* Tooltip */
+        .nav-item .tooltip {
+            position: absolute;
+            left: 75px;
+            background-color: #16213E;
+            color: #E94560;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            border-left: 2px solid #E94560;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .nav-item:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 70px;
+            min-height: 100vh;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* HERO SECTION */
+        #home {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #E94560;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.4rem;
+            color: #533483;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #EAEAEA;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #E94560 0%, #533483 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+            border-color: #E94560;
+            background: linear-gradient(135deg, #533483 0%, #E94560 100%);
+        }
+
+        /* SERVICES SECTION */
+        #servicios {
+            background-color: #1A1A2E;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #E94560;
+            text-align: center;
+            letter-spacing: 2px;
+            width: 100%;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            padding: 40px;
+            border-radius: 12px;
+            border: 2px solid #533483;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #E94560;
+            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.2);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: #533483;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #E94560;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: #EAEAEA;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* TEAM SECTION */
+        #equipo {
+            background-color: #1A1A2E;
+            flex-direction: column;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #533483 0%, #E94560 100%);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1A1A2E;
+            border: 4px solid #E94560;
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+        }
+
+        .team-member h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: #E94560;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .team-member .role {
+            color: #533483;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .team-member p {
+            color: #EAEAEA;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* GALLERY SECTION */
+        #galeria {
+            background-color: #1A1A2E;
+            flex-direction: column;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #533483;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: #E94560;
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1A1A2E;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gallery-item:nth-child(1) .gallery-placeholder {
+            background: linear-gradient(135deg, #E94560 0%, #533483 100%);
+        }
+
+        .gallery-item:nth-child(2) .gallery-placeholder {
+            background: linear-gradient(135deg, #533483 0%, #0F3460 100%);
+        }
+
+        .gallery-item:nth-child(3) .gallery-placeholder {
+            background: linear-gradient(135deg, #0F3460 0%, #E94560 100%);
+        }
+
+        .gallery-item:nth-child(4) .gallery-placeholder {
+            background: linear-gradient(135deg, #16213E 0%, #533483 100%);
+        }
+
+        .gallery-item:nth-child(5) .gallery-placeholder {
+            background: linear-gradient(135deg, #E94560 0%, #0F3460 100%);
+        }
+
+        .gallery-item:nth-child(6) .gallery-placeholder {
+            background: linear-gradient(135deg, #533483 0%, #E94560 100%);
+        }
+
+        /* CONTACT SECTION */
+        #contacto {
+            background: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            flex-direction: column;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .contact-content p {
+            font-size: 1.1rem;
+            color: #EAEAEA;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            background-color: rgba(83, 52, 131, 0.2);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #533483;
+            margin-bottom: 30px;
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            color: #E94560;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .whatsapp-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3);
+            border-color: white;
+        }
+
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* MOBILE STYLES - Bottom Navigation */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                top: auto;
+                width: 100%;
+                height: 70px;
+                flex-direction: row;
+                border-right: none;
+                border-top: 2px solid #533483;
+                padding: 0 20px;
+                gap: 0;
+                justify-content: space-around;
+            }
+
+            main {
+                margin-left: 0;
+                margin-bottom: 70px;
+            }
+
+            section {
+                padding: 40px 20px;
+                min-height: auto;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-item .tooltip {
+                opacity: 0;
+                display: none;
+            }
+
+            .contact-content {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card {
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* FOOTER SECTION */
+        footer {
+            background: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 2px solid #533483;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #E94560;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .footer-location {
+            color: #EAEAEA;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .social-link {
+            color: #533483;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-link:hover {
+            color: #E94560;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: #EAEAEA;
+            font-size: 0.9rem;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(83, 52, 131, 0.3);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 40px 20px;
+            }
+
+            .footer-content h3 {
+                font-size: 1.4rem;
+            }
+
+            .social-links {
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+
+            .social-link {
+                font-size: 0.9rem;
+            }
+
+            .footer-location {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            footer {
+                padding: 30px 15px;
+            }
+
+            .footer-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer-location {
+                font-size: 0.85rem;
+            }
+
+            .copyright {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR NAVIGATION -->
+    <nav class="sidebar">
+        <div class="nav-item active" data-section="home">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-4h2v18h-2z"/>
+                <rect x="3" y="3" width="18" height="2" rx="1"/>
+            </svg>
+            <div class="tooltip">Inicio</div>
+        </div>
+
+        <div class="nav-item" data-section="servicios">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 9h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+                <circle cx="12" cy="12" r="10" fill="none"/>
+            </svg>
+            <div class="tooltip">Servicios</div>
+        </div>
+
+        <div class="nav-item" data-section="equipo">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M12 14c-5 0-8 2.5-8 5.5V22h16v-2.5c0-3-3-5.5-8-5.5z"/>
+            </svg>
+            <div class="tooltip">Equipo</div>
+        </div>
+
+        <div class="nav-item" data-section="galeria">
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L7 15"/>
+            </svg>
+            <div class="tooltip">Galería</div>
+        </div>
+
+        <div class="nav-item" data-section="contacto">
+            <svg viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <div class="tooltip">Contacto</div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HERO SECTION -->
+        <section id="home">
+            <div class="hero-content">
+                <h1>DISTRITO</h1>
+                <div class="subtitle">Barber Club</div>
+                <p>Experiencia premium en cuidado personal. Donde la precisión se encuentra con el estilo.</p>
+                <a href="#servicios" class="cta-button">Conoce nuestros servicios</a>
+            </div>
+        </section>
+
+        <!-- SERVICIOS SECTION -->
+        <section id="servicios">
+            <h2 class="section-title">NUESTROS SERVICIOS</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">✂️</div>
+                    <h3>Corte Premium</h3>
+                    <p>Cortes personalizados con técnicas modernas y clásicas. Cada detalle cuenta.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🧔</div>
+                    <h3>Arreglo de Barba</h3>
+                    <p>Barbas impecables con perfilado, modelado y cuidado especializado.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💈</div>
+                    <h3>Afeitado Clásico</h3>
+                    <p>Tradicional afeitado con navaja de seguridad y productos de calidad.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💆</div>
+                    <h3>Tratamientos</h3>
+                    <p>Masajes faciales, tratamientos capilares y cuidado completo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EQUIPO SECTION -->
+        <section id="equipo">
+            <h2 class="section-title">NUESTRO EQUIPO</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="avatar">MR</div>
+                    <h3>Marco Rossi</h3>
+                    <div class="role">Barbero Principal</div>
+                    <p>20 años de experiencia en barbería tradicional y moderna. Especialista en cortes clásicos.</p>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">JG</div>
+                    <h3>Joaquín García</h3>
+                    <div class="role">Barbero Experto</div>
+                    <p>Especializado en diseños modernos y fades. Certificado en técnicas internacionales.</p>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">CS</div>
+                    <h3>Carlos Sánchez</h3>
+                    <div class="role">Estilista</div>
+                    <p>Experto en tratamientos capilares y arreglos de barba. Toque personal en cada corte.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERIA SECTION -->
+        <section id="galeria">
+            <h2 class="section-title">GALERÍA</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">TRABAJOS</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">NUESTROS</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">CORTES</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">ESTILO</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">PRECISIÓN</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">CALIDAD</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO SECTION -->
+        <section id="contacto">
+            <div class="contact-content">
+                <h2 class="section-title">CONTACTO</h2>
+                <p>Ponte en contacto con nosotros para reservar tu turno. Estamos listos para cuidar tu estilo.</p>
+                <div class="contact-info">
+                    <p>📍 Buenos Aires, Argentina</p>
+                    <p>📱 +54 9 11 6532-7935</p>
+                </div>
+                <a href="https://wa.me/5491165327935?text=Hola%20DISTRITO%20Barber%20Club%2C%20me%20gustaría%20reservar%20un%20turno" target="_blank" class="whatsapp-button">
+                    <svg class="whatsapp-icon" viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.053 31.372l6.204-1.95A15.925 15.925 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.17 2.282-.846.18-1.95.324-5.67-1.218-4.762-1.972-7.826-6.81-8.064-7.126-.23-.316-1.932-2.572-1.932-4.904 0-2.332 1.224-3.478 1.66-3.952.436-.474.95-.592 1.266-.592.316 0 .632.002.908.016.292.014.684-.11 1.07.816.39.94 1.33 3.248 1.448 3.484.118.236.196.51.04.826-.158.316-.236.512-.474.79-.236.276-.498.618-.71.828-.238.236-.486.492-.21.966.278.474 1.236 2.038 2.654 3.302 1.822 1.624 3.358 2.126 3.832 2.362.474.236.75.198 1.026-.118.278-.316 1.184-1.382 1.5-1.856.316-.474.632-.394 1.066-.236.434.158 2.762 1.302 3.236 1.54.474.236.79.356.908.552.118.198.118 1.148-.272 2.248z"/></svg>
+                    Contactar por WhatsApp
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER SECTION -->
+        <footer>
+            <div class="footer-content">
+                <h3>DISTRITO Barber Club</h3>
+                <p class="footer-location">Buenos Aires, Argentina</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        📷 Instagram
+                    </a>
+                    <a href="#" class="social-link">
+                        👍 Facebook
+                    </a>
+                </div>
+                <p class="copyright">© 2026 DISTRITO Barber Club. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Intersection Observer for active section tracking
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const currentSection = entry.target.getAttribute('id');
+
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+
+                    const activeNav = document.querySelector(`[data-section="${currentSection}"]`);
+                    if (activeNav) {
+                        activeNav.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navigation click handlers
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

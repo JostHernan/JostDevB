@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APICE Barbería - Barbería de Autor</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: #2C2418;
+            background: #0A0A0A;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(232, 185, 49, 0.1);
+        }
+
+        nav a {
+            color: #E8B931;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: inline-block;
+        }
+
+        /* Card Container */
+        .card {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .card:not(:first-child) {
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Card Content */
+        .card-content {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Card 1: Hero */
+        #hero {
+            background: #0A0A0A;
+            color: white;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: #E8B931;
+            font-weight: 600;
+            margin-bottom: 4rem;
+            letter-spacing: 2px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: #E8B931;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* Card 2: Servicios */
+        #servicios {
+            background: #1B4332;
+            color: #D4EDDA;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: #E8B931;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .servicio-card {
+            background: rgba(212, 237, 218, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(232, 185, 49, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-5px);
+            border-color: #E8B931;
+            background: rgba(232, 185, 49, 0.1);
+        }
+
+        .servicio-nombre {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #D4EDDA;
+        }
+
+        .servicio-precio {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #E8B931;
+        }
+
+        /* Card 3: Nosotros */
+        #nosotros {
+            background: #F5F0EB;
+            color: #2C2418;
+        }
+
+        .nosotros-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #E8B931;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #2C2418;
+            font-weight: 600;
+        }
+
+        /* Card 4: Galería */
+        #galeria {
+            background: #1A1A2E;
+            color: white;
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .galeria-item {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #E8B931, #D4A574);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .galeria-item:nth-child(2) {
+            background: linear-gradient(135deg, #1B4332, #0A3D1E);
+        }
+
+        .galeria-item:nth-child(3) {
+            background: linear-gradient(135deg, #7F1D1D, #5A0F0F);
+        }
+
+        .galeria-item:nth-child(4) {
+            background: linear-gradient(135deg, #F5F0EB, #E8DDD0);
+        }
+
+        .galeria-item:nth-child(5) {
+            background: linear-gradient(135deg, #E8B931, #C99A1F);
+        }
+
+        .galeria-item:nth-child(6) {
+            background: linear-gradient(135deg, #1B4332, #0D1F14);
+        }
+
+        .galeria-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Card 5: Contacto */
+        #contacto {
+            background: #7F1D1D;
+            color: white;
+        }
+
+        .contacto-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background: #25D366;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .whatsapp-button:hover {
+            background: #1FAB56;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .contacto-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(232, 185, 49, 0.2);
+        }
+
+        .info-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #E8B931;
+            margin-bottom: 1rem;
+        }
+
+        .info-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            color: white;
+        }
+
+        .floating-whatsapp:hover {
+            background: #1FAB56;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .floating-whatsapp svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .hero-title {
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-subtitle {
+                margin-bottom: 2rem;
+            }
+
+            .servicios-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .servicio-card {
+                padding: 1.5rem;
+            }
+
+            .stats-row {
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .galeria-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .floating-whatsapp {
+                width: 50px;
+                height: 50px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .floating-whatsapp svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 0.5rem;
+            }
+
+            .servicios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .galeria-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contacto-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        .apice-footer {
+            background: #0A0A0A;
+            color: #E8B931;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #E8B931;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: #E8B931;
+            letter-spacing: 1px;
+        }
+
+        .footer-brand p {
+            font-size: 0.95rem;
+            color: #D4A574;
+            margin-bottom: 1rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: #D4A574;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#hero">APICE</a>
+    </nav>
+
+    <!-- Card 1: Hero -->
+    <section id="hero" class="card">
+        <div class="card-content">
+            <h1 class="hero-title">APICE</h1>
+            <p class="hero-subtitle">Barbería de Autor</p>
+            <div class="scroll-indicator">
+                <span style="font-size: 0.9rem; color: #E8B931;">Deslizá</span>
+                <svg viewBox="0 0 24 24">
+                    <polyline points="12 5 12 19"></polyline>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card 2: Servicios -->
+    <section id="servicios" class="card">
+        <div class="card-content">
+            <h2 class="section-title">Servicios</h2>
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <div class="servicio-nombre">Corte Clásico</div>
+                    <div class="servicio-precio">$4.500</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-nombre">Fade</div>
+                    <div class="servicio-precio">$5.000</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-nombre">Barba</div>
+                    <div class="servicio-precio">$3.500</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-nombre">Corte + Barba</div>
+                    <div class="servicio-precio">$7.000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card 3: Nosotros -->
+    <section id="nosotros" class="card">
+        <div class="card-content">
+            <h2 class="section-title">Nosotros</h2>
+            <p class="nosotros-text">
+                En APICE Barbería creemos que el corte perfecto es un arte. Desde hace años nos dedicamos a ofrecer la mejor experiencia en barbería, combinando técnicas tradicionales con diseños contemporáneos. Cada cliente es único y merecedor de un servicio personalizado y de calidad excepcional.
+            </p>
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Años de Experiencia</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5.000+</div>
+                    <div class="stat-label">Clientes Satisfechos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Barberos Profesionales</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card 4: Galería -->
+    <section id="galeria" class="card">
+        <div class="card-content">
+            <h2 class="section-title">Galería</h2>
+            <div class="galeria-grid">
+                <div class="galeria-item"></div>
+                <div class="galeria-item"></div>
+                <div class="galeria-item"></div>
+                <div class="galeria-item"></div>
+                <div class="galeria-item"></div>
+                <div class="galeria-item"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card 5: Contacto -->
+    <section id="contacto" class="card">
+        <div class="card-content">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contacto-content">
+                <a href="https://wa.me/5491165327935" target="_blank" class="whatsapp-button">
+                    <svg viewBox="0 0 32 32" fill="currentColor">
+                        <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.053 31.372l6.204-1.95A15.925 15.925 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.17 2.282-.846.18-1.95.324-5.67-1.218-4.762-1.972-7.826-6.81-8.064-7.126-.23-.316-1.932-2.572-1.932-4.904 0-2.332 1.224-3.478 1.66-3.952.436-.474.95-.592 1.266-.592.316 0 .632.002.908.016.292.014.684-.11 1.07.816.39.94 1.33 3.248 1.448 3.484.118.236.196.51.04.826-.158.316-.236.512-.474.79-.236.276-.498.618-.71.828-.238.236-.486.492-.21.966.278.474 1.236 2.038 2.654 3.302 1.822 1.624 3.358 2.126 3.832 2.362.474.236.75.198 1.026-.118.278-.316 1.184-1.382 1.5-1.856.316-.474.632-.394 1.066-.236.434.158 2.762 1.302 3.236 1.54.474.236.79.356.908.552.118.198.118 1.148-.272 2.248z"/>
+                    </svg>
+                    Escribinos por WhatsApp
+                </a>
+                <div class="contacto-info">
+                    <div class="info-box">
+                        <div class="info-title">Ubicación</div>
+                        <div class="info-text">
+                            Av. Corrientes 1234<br>
+                            CABA, Argentina
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-title">Horarios</div>
+                        <div class="info-text">
+                            Lunes a Viernes: 10:00 - 20:00<br>
+                            Sábados: 09:00 - 19:00<br>
+                            Domingos: Cerrado
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5491165327935" target="_blank" class="floating-whatsapp" title="Contactanos por WhatsApp">
+        <svg viewBox="0 0 32 32" fill="currentColor">
+            <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.053 31.372l6.204-1.95A15.925 15.925 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.17 2.282-.846.18-1.95.324-5.67-1.218-4.762-1.972-7.826-6.81-8.064-7.126-.23-.316-1.932-2.572-1.932-4.904 0-2.332 1.224-3.478 1.66-3.952.436-.474.95-.592 1.266-.592.316 0 .632.002.908.016.292.014.684-.11 1.07.816.39.94 1.33 3.248 1.448 3.484.118.236.196.51.04.826-.158.316-.236.512-.474.79-.236.276-.498.618-.71.828-.238.236-.486.492-.21.966.278.474 1.236 2.038 2.654 3.302 1.822 1.624 3.358 2.126 3.832 2.362.474.236.75.198 1.026-.118.278-.316 1.184-1.382 1.5-1.856.316-.474.632-.394 1.066-.236.434.158 2.762 1.302 3.236 1.54.474.236.79.356.908.552.118.198.118 1.148-.272 2.248z"/>
+        </svg>
+    </a>
+
+    <!-- Footer -->
+    <footer class="apice-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>APICE Barbería</h3>
+                <p>Buenos Aires, Argentina</p>
+            </div>
+            <p class="footer-copyright">© 2026 APICE Barbería. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

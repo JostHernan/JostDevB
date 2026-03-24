@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NERO Barbershop - Barbería Premium en Buenos Aires</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1C1C1C;
+            --gold: #C9A84C;
+            --gold-light: #E8D4A0;
+            --gold-dark: #8B7A3E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --border: #2A2A2A;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        body:not(.mobile) {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="4" fill="%23C9A84C"/><circle cx="16" cy="16" r="8" fill="none" stroke="%23C9A84C" stroke-width="1"/></svg>') 16 16, auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: #000;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+            display: block;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+            padding-left: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--gold);
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .button-secondary:hover {
+            background: rgba(201, 168, 76, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero-card-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .hero-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .hero-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(28, 28, 28, 0.8) 100%);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .service-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-card {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        .gallery-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .gallery-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            animation: gradientShift 6s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .gallery-card:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+
+        /* Booking CTA Section */
+        .booking-cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
+        }
+
+        .booking-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .booking-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .booking-cta p {
+            color: rgba(0, 0, 0, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .booking-cta .cta-button {
+            background: #000;
+            color: var(--gold);
+            font-size: 1rem;
+            padding: 1rem 2.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .booking-cta .cta-button:hover {
+            background: var(--text-primary);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .stars {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .testimonial-role {
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
+        /* Location Section */
+        .location {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-top: 1px solid var(--border);
+        }
+
+        .location-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .location-map {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            opacity: 0.3;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-map::after {
+            content: '📍';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            z-index: 1;
+            opacity: 1;
+        }
+
+        .location-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .info-block p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+            padding-left: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Scroll Animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .fade-in-up.visible {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none !important;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .booking-cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .cta-button:not(.booking-cta .cta-button) {
+                display: none;
+            }
+
+            .hero {
+                margin-top: 50px;
+                min-height: auto;
+                padding: 2rem 1rem;
+            }
+
+            .hero::before {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .cta-button, .button-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .services {
+                padding: 3rem 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .stats {
+                padding: 3rem 1rem;
+            }
+
+            .stats-container {
+                gap: 1.5rem;
+            }
+
+            .stat-item {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .gallery {
+                padding: 3rem 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .booking-cta {
+                padding: 3rem 1rem;
+            }
+
+            .booking-cta h2 {
+                font-size: 1.6rem;
+            }
+
+            .testimonials {
+                padding: 3rem 1rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location {
+                padding: 3rem 1rem;
+            }
+
+            .location-map {
+                aspect-ratio: 1;
+            }
+
+            .footer-content {
+                gap: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-card {
+                padding: 2rem 1rem;
+            }
+
+            .services-grid {
+                gap: 1rem;
+            }
+
+            .service-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .booking-cta h2 {
+                font-size: 1.4rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .hero-buttons {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="#" class="logo">NERO</a>
+            <ul class="nav-links">
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#gallery">Galería</a></li>
+                <li><a href="#testimonials">Opiniones</a></li>
+                <li><a href="#location">Ubicación</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="#booking" class="cta-button">Reservar Turno</a>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#services">Servicios</a>
+        <a href="#gallery">Galería</a>
+        <a href="#testimonials">Opiniones</a>
+        <a href="#location">Ubicación</a>
+        <a href="#booking" class="cta-button" style="margin-top: 1rem;">Reservar Turno</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>DONDE EL ESTILO SE ENCUENTRA CON LA TRADICIÓN</h1>
+                <p>Barbería premium con más de 5 años de excelencia. Nuestros expertos te ofrecen cortes precisos, atención personalizada y un ambiente de lujo en cada visita.</p>
+                <div class="hero-buttons">
+                    <a href="#booking" class="cta-button">Reservar Turno Ahora</a>
+                    <button class="button-secondary">Conocer Más</button>
+                </div>
+            </div>
+            <div class="hero-card">
+                <div class="hero-card-icon">✂️</div>
+                <h3>Barbería de Clase</h3>
+                <p>Experiencia de lujo con los detalles más refinados. Cada corte es una obra maestra.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>Nuestros Servicios</h2>
+            <p>Selecciona el servicio que mejor se adapte a tu estilo y necesidades</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in-up">
+                <div class="service-icon">✂️</div>
+                <h3>Corte Clásico</h3>
+                <p>Corte tradicional con máquinas profesionales y acabado impecable</p>
+                <div class="service-price">$5.500</div>
+            </div>
+            <div class="service-card fade-in-up">
+                <div class="service-icon">🎨</div>
+                <h3>Degradado Premium</h3>
+                <p>Degradado con transición suave y detalles de precisión laser</p>
+                <div class="service-price">$6.000</div>
+            </div>
+            <div class="service-card fade-in-up">
+                <div class="service-icon">🧔</div>
+                <h3>Afeitado de Barba</h3>
+                <p>Afeitado clásico con navaja, aceites y lotiones premium</p>
+                <div class="service-price">$4.000</div>
+            </div>
+            <div class="service-card fade-in-up">
+                <div class="service-icon">💎</div>
+                <h3>Corte + Barba</h3>
+                <p>Combo exclusivo para el hombre que cuida cada detalle</p>
+                <div class="service-price">$8.500</div>
+            </div>
+            <div class="service-card fade-in-up">
+                <div class="service-icon">🌟</div>
+                <h3>Alisado Premium</h3>
+                <p>Tratamiento de alisado con productos importados y garantizado</p>
+                <div class="service-price">$7.000</div>
+            </div>
+            <div class="service-card fade-in-up">
+                <div class="service-icon">👁️</div>
+                <h3>Diseño de Cejas</h3>
+                <p>Depilación y diseño profesional de cejas con precision</p>
+                <div class="service-price">$2.000</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">5+</div>
+                <div class="stat-label">Años de Trayectoria</div>
+            </div>
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Cortes Realizados</div>
+            </div>
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">4.9★</div>
+                <div class="stat-label">Calificación</div>
+            </div>
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Barberos Expertos</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <h2>Nuestro Trabajo</h2>
+            <p>Galería de transformaciones y estilos que hemos creado</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-card fade-in-up">
+                <div class="gallery-bg"></div>
+                <div class="gallery-overlay"><span>Corte Clásico</span></div>
+            </div>
+            <div class="gallery-card fade-in-up">
+                <div class="gallery-bg" style="background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);"></div>
+                <div class="gallery-overlay"><span>Degradado</span></div>
+            </div>
+            <div class="gallery-card fade-in-up">
+                <div class="gallery-bg" style="background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--gold) 100%);"></div>
+                <div class="gallery-overlay"><span>Barba Perfecta</span></div>
+            </div>
+            <div class="gallery-card fade-in-up">
+                <div class="gallery-bg" style="background: linear-gradient(135deg, var(--gold) 0%, var(--bg-tertiary) 100%);"></div>
+                <div class="gallery-overlay"><span>Combo Premium</span></div>
+            </div>
+            <div class="gallery-card fade-in-up">
+                <div class="gallery-bg" style="background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-dark) 100%);"></div>
+                <div class="gallery-overlay"><span>Alisado</span></div>
+            </div>
+            <div class="gallery-card fade-in-up">
+                <div class="gallery-bg" style="background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--gold) 100%);"></div>
+                <div class="gallery-overlay"><span>Diseño Cejas</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking CTA Section -->
+    <section class="booking-cta" id="booking">
+        <div class="booking-content">
+            <h2>Reserva Tu Turno Hoy</h2>
+            <p>No esperes más para experimentar la calidad premium de NERO Barbershop. Nuestros barberos expertos están listos para transformar tu look.</p>
+            <button class="cta-button">Reservar Ahora</button>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <h2>Lo Que Dicen Nuestros Clientes</h2>
+            <p>Opiniones de clientes satisfechos con nuestro servicio</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in-up">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"El mejor corte que me han hecho en años. La atención es impecable y el ambiente es de primera. Definitivamente volveré."</p>
+                <div class="testimonial-author">Martín García</div>
+                <div class="testimonial-role">Cliente Premium</div>
+            </div>
+            <div class="testimonial-card fade-in-up">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Profesionales verdaderos. El detalle en cada corte es increíble. Vale cada peso invertido en esta barbería."</p>
+                <div class="testimonial-author">Carlos López</div>
+                <div class="testimonial-role">Cliente Regular</div>
+            </div>
+            <div class="testimonial-card fade-in-up">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"El combo corte + barba es perfecto. Te sientes como un verdadero caballero saliendo de NERO. Recomendado 100%."</p>
+                <div class="testimonial-author">Juan Rodríguez</div>
+                <div class="testimonial-role">Cliente Habitual</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+        <div class="location-container">
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <h2>Ubicación y Horarios</h2>
+            </div>
+            <div class="location-map"></div>
+            <div class="location-info">
+                <div class="info-block fade-in-up">
+                    <div class="info-icon">📍</div>
+                    <h3>Dirección</h3>
+                    <p>Av. Corrientes 1234<br>Buenos Aires, Argentina<br>C1043AAX</p>
+                </div>
+                <div class="info-block fade-in-up">
+                    <div class="info-icon">📞</div>
+                    <h3>Contacto</h3>
+                    <p>(+54) 11 4867-5432<br>info@nerobarbershop.com<br>WhatsApp: +54 911 2345-6789</p>
+                </div>
+                <div class="info-block fade-in-up">
+                    <div class="info-icon">🕐</div>
+                    <h3>Horarios</h3>
+                    <p>Lun - Vie: 10:00 - 20:00<br>Sábado: 10:00 - 19:00<br>Domingo: 11:00 - 18:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>NERO BARBERSHOP</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Barbería premium donde el estilo encuentra la tradición. Excelencia en cada corte.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">𝕏</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">▶️</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#services">Corte Clásico</a></li>
+                    <li><a href="#services">Degradado Premium</a></li>
+                    <li><a href="#services">Afeitado de Barba</a></li>
+                    <li><a href="#services">Combo Premium</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#location">Ubicación</a></li>
+                    <li><a href="#booking">Reservar Turno</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Conecta Con Nosotros</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">Síguenos en redes sociales para promociones especiales y contenido exclusivo.</p>
+                <a href="mailto:info@nerobarbershop.com" style="color: var(--gold); text-decoration: none; font-size: 0.9rem;">info@nerobarbershop.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024-2026 NERO Barbershop. Todos los derechos reservados. Hecho con precisión en Buenos Aires, Argentina.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Detect mobile for custom cursor
+        function updateCursorForMobile() {
+            const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                document.body.classList.add('mobile');
+            } else {
+                document.body.classList.remove('mobile');
+            }
+        }
+
+        updateCursorForMobile();
+        window.addEventListener('resize', updateCursorForMobile);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Button click feedback
+        document.querySelectorAll('.cta-button, .button-secondary').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

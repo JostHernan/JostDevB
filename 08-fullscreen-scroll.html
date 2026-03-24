@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUMBRE Barbería - Barbershop Landing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-navy: #0D1B2A;
+            --navy: #1B2838;
+            --steel-blue: #415A77;
+            --silver-blue: #778DA9;
+            --light-silver: #E0E1DD;
+            --sage-accent: #C0CFB2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            color: var(--light-silver);
+            background-color: var(--dark-navy);
+            overflow-x: hidden;
+        }
+
+        /* FULLSCREEN SECTIONS */
+        section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* SIDE DOTS NAVIGATION */
+        .dots-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--steel-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dot:hover {
+            background-color: var(--sage-accent);
+            transform: scale(1.3);
+        }
+
+        .dot.active {
+            background-color: var(--sage-accent);
+            width: 14px;
+            height: 14px;
+            box-shadow: 0 0 10px rgba(192, 207, 178, 0.5);
+        }
+
+        /* HERO SECTION */
+        #hero {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+            text-align: center;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(48px, 10vw, 96px);
+            letter-spacing: 3px;
+            color: var(--sage-accent);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content .tagline {
+            font-size: clamp(16px, 3vw, 24px);
+            color: var(--silver-blue);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--sage-accent);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* SERVICIOS SECTION */
+        #servicios {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--dark-navy) 100%);
+            flex-direction: column;
+            padding: 80px 40px;
+        }
+
+        .servicios-container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(42px, 8vw, 64px);
+            text-align: center;
+            margin-bottom: 80px;
+            color: var(--sage-accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background-color: rgba(27, 40, 56, 0.6);
+            border: 1px solid var(--steel-blue);
+            padding: 50px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .service-card:hover {
+            background-color: rgba(65, 90, 119, 0.4);
+            border-color: var(--sage-accent);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(192, 207, 178, 0.15);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--sage-accent);
+        }
+
+        .service-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--light-silver);
+            letter-spacing: 1px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--silver-blue);
+            line-height: 1.6;
+        }
+
+        /* SOBRE NOSOTROS SECTION */
+        #sobre-nosotros {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+            flex-direction: row;
+            gap: 80px;
+            padding: 80px 40px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .about-text h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(36px, 6vw, 56px);
+            margin-bottom: 30px;
+            color: var(--sage-accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: var(--silver-blue);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .decorative-element {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .about-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: var(--sage-accent);
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--silver-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* TESTIMONIOS SECTION */
+        #testimonios {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--dark-navy) 100%);
+            flex-direction: column;
+            padding: 80px 40px;
+        }
+
+        .testimonios-container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background-color: rgba(27, 40, 56, 0.6);
+            border-left: 4px solid var(--sage-accent);
+            padding: 40px;
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .testimonial-card:hover {
+            background-color: rgba(65, 90, 119, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .stars {
+            color: var(--sage-accent);
+            margin-bottom: 15px;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 15px;
+            color: var(--light-silver);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            color: var(--sage-accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* CONTACTO SECTION */
+        #contacto {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+            flex-direction: column;
+            gap: 40px;
+            text-align: center;
+        }
+
+        .contacto-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(36px, 8vw, 64px);
+            margin-bottom: 20px;
+            color: var(--sage-accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .contacto-content p {
+            font-size: 18px;
+            color: var(--silver-blue);
+            margin-bottom: 40px;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--sage-accent);
+            color: var(--dark-navy);
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Source Sans 3', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .whatsapp-button:hover {
+            background-color: var(--light-silver);
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(192, 207, 178, 0.3);
+        }
+
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            section {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .dots-nav {
+                right: 15px;
+                gap: 12px;
+            }
+
+            .dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .dot.active {
+                width: 12px;
+                height: 12px;
+            }
+
+            #sobre-nosotros {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .about-stats {
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .servicios-grid {
+                gap: 20px;
+            }
+
+            .service-card {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 48px;
+            }
+
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .servicios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dots-nav {
+                display: none;
+            }
+        }
+
+        .section-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0; right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 12px;
+            color: var(--steel-blue);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <!-- DOTS NAVIGATION -->
+    <div class="dots-nav">
+        <div class="dot active" data-section="0"></div>
+        <div class="dot" data-section="1"></div>
+        <div class="dot" data-section="2"></div>
+        <div class="dot" data-section="3"></div>
+        <div class="dot" data-section="4"></div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1>CUMBRE</h1>
+            <p class="tagline">Barbería de Altura</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="12 5 19 12 12 19"></polyline>
+                <polyline points="5 12 12 19 5 26"></polyline>
+            </svg>
+        </div>
+    </section>
+
+    <!-- SERVICIOS SECTION -->
+    <section id="servicios">
+        <div class="servicios-container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="servicios-grid">
+                <div class="service-card">
+                    <div class="service-icon">✂️</div>
+                    <h3>Cortes Premium</h3>
+                    <p>Cortes profesionales con las técnicas más modernas y tendencias internacionales.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🧔</div>
+                    <h3>Afeitada Clásica</h3>
+                    <p>Experiencia tradicional con navaja, espuma caliente y acabado perfecto.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💈</div>
+                    <h3>Barba & Bigote</h3>
+                    <p>Diseño y mantenimiento especializado de barba con productos premium.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Tratamientos</h3>
+                    <p>Cuidados especializados para cuero cabelludo y piel con productos de calidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS SECTION -->
+    <section id="sobre-nosotros">
+        <div class="about-text">
+            <h2>Sobre Nosotros</h2>
+            <p>En CUMBRE Barbería creemos que un buen corte de cabello es más que un servicio. Es un ritual, una experiencia que marca diferencia en tu día a día.</p>
+            <p>Con más de 15 años en la industria, nuestro equipo de barberos expertos se dedica a ofrecer la máxima calidad en cada corte, afeitada y tratamiento.</p>
+            <p>Bienvenido a una barbería donde la tradición se encuentran con la modernidad, donde cada cliente es una prioridad y cada detalle cuenta.</p>
+        </div>
+        <div class="decorative-element">
+            <div class="about-stats">
+                <div class="stat-item"><span class="stat-number">15+</span><span class="stat-label">Años de experiencia</span></div>
+                <div class="stat-item"><span class="stat-number">5000+</span><span class="stat-label">Clientes satisfechos</span></div>
+                <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Barberos expertos</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS SECTION -->
+    <section id="testimonios">
+        <div class="testimonios-container">
+            <h2 class="section-title">Testimonios</h2>
+            <div class="testimonios-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★ ★ ★ ★ ★</div>
+                    <p class="testimonial-text">"La mejor barbería a la que he ido. Los barberos son profesionales, el lugar es limpio y acogedor. Excelente atención."</p>
+                    <p class="testimonial-author">- Juan Martínez</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★ ★ ★ ★ ★</div>
+                    <p class="testimonial-text">"Encontré finalmente una barbería donde entienden lo que quiero. Vuelvo cada mes sin dudarlo. Muy recomendado."</p>
+                    <p class="testimonial-author">- Carlos Rodríguez</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★ ★ ★ ★ ★</div>
+                    <p class="testimonial-text">"Servicio impecable, ambiente de lujo y barberos que realmente saben lo que hacen. Esto es CUMBRE en todos los sentidos."</p>
+                    <p class="testimonial-author">- Diego López</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO SECTION -->
+    <section id="contacto">
+        <div class="contacto-content">
+            <h2>Contáctanos</h2>
+            <p>Estamos listos para darte la mejor experiencia en barbería</p>
+            <a href="https://wa.me/5491165327935" target="_blank" class="whatsapp-button">
+                <svg class="whatsapp-icon" viewBox="0 0 32 32" fill="currentColor">
+                    <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.053 31.372l6.204-1.95A15.925 15.925 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.17 2.282-.846.18-1.95.324-5.67-1.218-4.762-1.972-7.826-6.81-8.064-7.126-.23-.316-1.932-2.572-1.932-4.904 0-2.332 1.224-3.478 1.66-3.952.436-.474.95-.592 1.266-.592.316 0 .632.002.908.016.292.014.684-.11 1.07.816.39.94 1.33 3.248 1.448 3.484.118.236.196.51.04.826-.158.316-.236.512-.474.79-.236.276-.498.618-.71.828-.238.236-.486.492-.21.966.278.474 1.236 2.038 2.654 3.302 1.822 1.624 3.358 2.126 3.832 2.362.474.236.75.198 1.026-.118.278-.316 1.184-1.382 1.5-1.856.316-.474.632-.394 1.066-.236.434.158 2.762 1.302 3.236 1.54.474.236.79.356.908.552.118.198.118 1.148-.272 2.248z"/>
+                </svg>
+                Escribir WhatsApp
+            </a>
+            <div class="section-footer">
+                <span>Buenos Aires, Argentina</span>
+                <span>© 2026 CUMBRE Barbería. Todos los derechos reservados.</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Side dots navigation
+        const dots = document.querySelectorAll('.dot');
+        const sections = document.querySelectorAll('section');
+
+        // Update active dot on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionIndex = Array.from(sections).indexOf(entry.target);
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === sectionIndex);
+                    });
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        sections.forEach(section => observer.observe(section));
+
+        // Click dots to scroll to section
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                sections[index].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

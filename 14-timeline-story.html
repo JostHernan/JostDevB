@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORIGEN Barbería - Cada corte cuenta una historia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-warm: #F5F0EB;
+            --text-dark: #2C2418;
+            --accent-terracotta: #C75B39;
+            --cream: #FFF8F0;
+            --border-light: #E8DDD0;
+            --brown-secondary: #8B7355;
+            --shadow: 0 4px 15px rgba(44, 36, 24, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-warm);
+            color: var(--text-dark);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--cream);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.25rem 2rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-terracotta);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-terracotta);
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-warm) 0%, var(--cream) 100%);
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero .tagline {
+            font-size: 1.2rem;
+            color: var(--brown-secondary);
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            .hero .tagline {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Timeline Container */
+        .timeline-container {
+            position: relative;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Timeline Line */
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: var(--accent-terracotta);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Timeline Items */
+        .timeline-item {
+            margin-bottom: 4rem;
+            display: flex;
+            gap: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .timeline-item.left {
+            flex-direction: row;
+        }
+
+        .timeline-item.right {
+            flex-direction: row-reverse;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .timeline-item,
+            .timeline-item.left,
+            .timeline-item.right {
+                flex-direction: column-reverse;
+                margin-left: 40px;
+            }
+        }
+
+        /* Timeline Dot */
+        .timeline-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-terracotta);
+            border-radius: 50%;
+            left: 14px;
+            top: 30px;
+            border: 4px solid var(--bg-warm);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-dot {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Timeline Content */
+        .timeline-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-content {
+                width: calc(50% - 1rem);
+            }
+        }
+
+        .timeline-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--accent-terracotta);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-card {
+            background-color: var(--cream);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+
+        .timeline-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .timeline-card p {
+            color: var(--brown-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .timeline-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .timeline-card li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-card li:last-child {
+            border-bottom: none;
+        }
+
+        .service-name {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .service-price {
+            color: var(--accent-terracotta);
+            font-weight: 700;
+        }
+
+        /* Team Profiles */
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .avatar.avatar-1 {
+            background: linear-gradient(135deg, #C75B39 0%, #a83d2a 100%);
+        }
+
+        .avatar.avatar-2 {
+            background: linear-gradient(135deg, #8B7355 0%, #6d5843 100%);
+        }
+
+        .avatar.avatar-3 {
+            background: linear-gradient(135deg, #D4A574 0%, #b88c5e 100%);
+        }
+
+        .team-member h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+            color: var(--brown-secondary);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .testimonial {
+            background-color: var(--bg-warm);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-terracotta);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-author {
+            color: var(--accent-terracotta);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Space Section */
+        .space-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .space-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .space-description {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .space-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--accent-terracotta), var(--brown-secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .contact-block {
+            background-color: var(--bg-warm);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+        }
+
+        .contact-block h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-block p {
+            color: var(--brown-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: #25D366;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1fae52;
+        }
+
+        .whatsapp-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 90;
+            text-decoration: none;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .floating-whatsapp svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-terracotta);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 767px) {
+            .timeline-container {
+                padding: 2rem 1rem;
+            }
+
+            .timeline-card {
+                padding: 1.5rem;
+            }
+
+            .timeline-card h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">ORIGEN</div>
+        <ul class="nav-links">
+            <li><a href="#historia">Historia</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+            <li><a href="#espacio">Espacio</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>ORIGEN Barbería</h1>
+        <p class="tagline">Cada corte cuenta una historia</p>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-container">
+        <div class="timeline-line"></div>
+
+        <!-- Item 1: Historia -->
+        <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-label">2010</div>
+                <div class="timeline-card" id="historia">
+                    <h3>Nuestra Historia</h3>
+                    <p>Fundada en 2010, ORIGEN Barbería nace de la pasión por recuperar la tradición de la barbería clásica. Cada corte es una expresión de oficio, cuidado y dedicación. Durante más de una década, hemos cultivado la relación con nuestros clientes, transformando la barbería en un espacio donde la calidad es innegociable.</p>
+                    <p>Creemos que un buen corte no es solo estética, es confianza. Es el ritual de hombres que saben lo que quieren y respetan el arte de quién lo hace.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2: Servicios -->
+        <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-label">Servicios</div>
+                <div class="timeline-card" id="servicios">
+                    <h3>Nuestros Servicios</h3>
+                    <ul>
+                        <li>
+                            <span class="service-name">Corte Clásico</span>
+                            <span class="service-price">$800</span>
+                        </li>
+                        <li>
+                            <span class="service-name">Fade</span>
+                            <span class="service-price">$900</span>
+                        </li>
+                        <li>
+                            <span class="service-name">Corte + Barba</span>
+                            <span class="service-price">$1.200</span>
+                        </li>
+                        <li>
+                            <span class="service-name">Tratamiento de Barba</span>
+                            <span class="service-price">$500</span>
+                        </li>
+                        <li>
+                            <span class="service-name">Tratamiento Capilar</span>
+                            <span class="service-price">$600</span>
+                        </li>
+                        <li>
+                            <span class="service-name">Afeitada de Seguridad</span>
+                            <span class="service-price">$400</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 3: Equipo -->
+        <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-label">Equipo</div>
+                <div class="timeline-card" id="equipo">
+                    <h3>Nuestro Equipo</h3>
+                    <p>Maestros del oficio con años de experiencia. Cada barbero en ORIGEN trae su propia historia y su propio estilo, pero todos comparten el mismo compromiso con la excelencia.</p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="avatar avatar-1">MA</div>
+                            <h4>Martín</h4>
+                            <p>Barbero Maestro</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="avatar avatar-2">JA</div>
+                            <h4>Jairo</h4>
+                            <p>Especialista Fade</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="avatar avatar-3">CA</div>
+                            <h4>Carlos</h4>
+                            <p>Experto en Barba</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 4: Espacio -->
+        <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-label">Atmósfera</div>
+                <div class="timeline-card" id="espacio">
+                    <h3>El Espacio</h3>
+                    <div class="space-content">
+                        <div class="space-description">
+                            <p>Diseñado para la comodidad y la concentración. Paredes cálidas, espejos amplios, y esa iluminación justa que permite ver cada detalle del trabajo. Aquí el tiempo se detiene un poco. No es solo una silla de barbero, es un espacio de pausa en tu día.</p>
+                            <p>Desde la música seleccionada hasta el aroma de nuestros productos, cada elemento contribuye a una experiencia completa.</p>
+                        </div>
+                        <div class="space-image">✂️</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 5: Testimonios -->
+        <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-label">Voces</div>
+                <div class="timeline-card">
+                    <h3>Lo que dicen nuestros clientes</h3>
+                    <div class="testimonials-grid">
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Hace 5 años que vengo a ORIGEN. Es parte de mi rutina semanal. Martín sabe exactamente qué quiero antes de que lo diga."</p>
+                            <p class="testimonial-author">— Diego, 38 años</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"La atención es impecable. Te sientes cuidado. El corte perfecto, la barba perfecta. Recomiendo ORIGEN a todos mis amigos."</p>
+                            <p class="testimonial-author">— Tomás, 29 años</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"No es solo un corte, es una experiencia. El lugar, los maestros, todo está pensado. Vale cada peso."</p>
+                            <p class="testimonial-author">— Federico, 45 años</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 6: Contacto -->
+        <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-label">Encuentranos</div>
+                <div class="timeline-card" id="contacto">
+                    <h3>Contacto</h3>
+                    <div class="contact-info">
+                        <div class="contact-block">
+                            <h4>📍 Ubicación</h4>
+                            <p>Av. Corrientes 1234</p>
+                            <p>San Nicolás, Buenos Aires</p>
+                            <p>Argentina</p>
+                        </div>
+                        <div class="contact-block">
+                            <h4>🕒 Horarios</h4>
+                            <p><strong>Lunes a Viernes:</strong> 10:00 - 20:00</p>
+                            <p><strong>Sábados:</strong> 10:00 - 18:00</p>
+                            <p><strong>Domingos:</strong> Cerrado</p>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/5491165327935" class="whatsapp-btn" target="_blank">
+                        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.053 31.372l6.204-1.95A15.925 15.925 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.17 2.282-.846.18-1.95.324-5.67-1.218-4.762-1.972-7.826-6.81-8.064-7.126-.23-.316-1.932-2.572-1.932-4.904 0-2.332 1.224-3.478 1.66-3.952.436-.474.95-.592 1.266-.592.316 0 .632.002.908.016.292.014.684-.11 1.07.816.39.94 1.33 3.248 1.448 3.484.118.236.196.51.04.826-.158.316-.236.512-.474.79-.236.276-.498.618-.71.828-.238.236-.486.492-.21.966.278.474 1.236 2.038 2.654 3.302 1.822 1.624 3.358 2.126 3.832 2.362.474.236.75.198 1.026-.118.278-.316 1.184-1.382 1.5-1.856.316-.474.632-.394 1.066-.236.434.158 2.762 1.302 3.236 1.54.474.236.79.356.908.552.118.198.118 1.148-.272 2.248z"/></svg>
+                        Escribinos por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5491165327935" class="floating-whatsapp" target="_blank" title="Contactanos por WhatsApp">
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.053 31.372l6.204-1.95A15.925 15.925 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.17 2.282-.846.18-1.95.324-5.67-1.218-4.762-1.972-7.826-6.81-8.064-7.126-.23-.316-1.932-2.572-1.932-4.904 0-2.332 1.224-3.478 1.66-3.952.436-.474.95-.592 1.266-.592.316 0 .632.002.908.016.292.014.684-.11 1.07.816.39.94 1.33 3.248 1.448 3.484.118.236.196.51.04.826-.158.316-.236.512-.474.79-.236.276-.498.618-.71.828-.238.236-.486.492-.21.966.278.474 1.236 2.038 2.654 3.302 1.822 1.624 3.358 2.126 3.832 2.362.474.236.75.198 1.026-.118.278-.316 1.184-1.382 1.5-1.856.316-.474.632-.394 1.066-.236.434.158 2.762 1.302 3.236 1.54.474.236.79.356.908.552.118.198.118 1.148-.272 2.248z"/></svg>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 ORIGEN Barbería. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="#historia">Historia</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#equipo">Equipo</a>
+            <a href="#espacio">Espacio</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+        <p style="margin-top: 1.5rem; font-size: 0.8rem; opacity: 0.8;">Buenos Aires, Argentina</p>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
